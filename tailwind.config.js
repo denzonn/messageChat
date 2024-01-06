@@ -14,6 +14,7 @@ export default {
         chatPurple: "#eedcff",
         chatGreenDark: "#43B78D",
         chatGreen: "#D2F2EA",
+        bluePastel: "#e9f3ff"
       },
     },
   },
