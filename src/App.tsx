@@ -1,13 +1,22 @@
 import { useState } from "react";
 import "./App.css";
 import Search from "./component/Search";
-import Chat from "./component/Chat";
 import Button from "./component/Button";
+import Accordion from "./component/Accordion";
+
+interface AccordionProps {
+  title: string;
+  days: number;
+  date: string;
+  content: string;
+  done?: boolean;
+}
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
   const [inbox, setInbox] = useState<boolean>(false);
   const [task, setTask] = useState<boolean>(false);
+  const [newTask, setNewTask] = useState<boolean>(false);
 
   const [show, setShow] = useState<boolean>(false);
   const [showAdmin, setShowAdmin] = useState<boolean>(false);
@@ -22,6 +31,30 @@ function App() {
     setWidth(clickedX);
     setHeight(clickedY);
   };
+
+  const accordion = [
+    {
+      title: "Close off Case #123123 - RODRIGUES, Amiguel",
+      days: 2,
+      date: "12/06/2021",
+      content: "Tsessdad",
+      done: false
+    },
+    {
+      title: "Close off Case #123123 - RODRIGUES, Amiguel",
+      days: 2,
+      date: "12/06/2021",
+      content: "Tsessdad",
+      done: false
+    },
+    {
+      title: "Close off Case #123123 - RODRIGUES, Amiguel",
+      days: 2,
+      date: "12/06/2021",
+      content: "Tsessdad",
+      done: true
+    },
+  ];
 
   return (
     <div>
@@ -429,6 +462,41 @@ function App() {
               </div>
             </div>
           )}
+        </div>
+      ) : null}
+
+      {task === true ? (
+        <div className="absolute bottom-28 right-10 rounded-lg bg-white text-black w-[40vw] h-[70vh] py-4 px-6">
+          <div className="grid grid-cols-2 gap-x-4">
+            <div>
+              <select
+                name=""
+                id=""
+                className="bg-transparent py-2 px-3 border rounded-md w-fit focus:border"
+              >
+                <option value="" selected>
+                  My Task
+                </option>
+                <option value="Personal Errands">Personal Errands</option>
+                <option value="Urgent To Do">Urgent To Do</option>
+              </select>
+            </div>
+            <div className="flex justify-end">
+              <Button placeholder="New Task" onClick={() => setNewTask(!newTask)}/>
+            </div>
+          </div>
+          <div className="overflow-auto h-[58vh] mt-4">
+            {accordion.map((item: AccordionProps, index: number) => (
+              <Accordion
+                key={index}
+                title={item.title}
+                days={item.days}
+                date={item.date}
+                content={item.content}
+                done={item.done}
+              />
+            ))}
+          </div>
         </div>
       ) : null}
     </div>
