@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Search from "./component/Search";
 import Button from "./component/Button";
 import Accordion from "./component/Accordion";
+import NewTask from "./component/NewTask";
 
 interface AccordionProps {
   title: string;
@@ -18,11 +19,18 @@ function App() {
   const [task, setTask] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<boolean>(false);
 
+  console.log(task);
+  
+
   const [show, setShow] = useState<boolean>(false);
   const [showAdmin, setShowAdmin] = useState<boolean>(false);
 
   const [width, setWidth] = useState<number>();
   const [height, setHeight] = useState<number>();
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingTask, setIsLoadingTask] = useState<boolean>(true);
+  const [isLoadingAdmin, setIsLoadingAdmin] = useState<boolean>(true);
 
   const handleClick = (event) => {
     const clickedX = event.clientX;
@@ -38,23 +46,47 @@ function App() {
       days: 2,
       date: "12/06/2021",
       content: "Tsessdad",
-      done: false
+      done: false,
     },
     {
       title: "Close off Case #123123 - RODRIGUES, Amiguel",
       days: 2,
       date: "12/06/2021",
       content: "Tsessdad",
-      done: false
+      done: false,
     },
     {
       title: "Close off Case #123123 - RODRIGUES, Amiguel",
       days: 2,
       date: "12/06/2021",
       content: "Tsessdad",
-      done: true
+      done: true,
     },
   ];
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoadingTask(false);
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const loadingAdminChat = () => {
+    const timeout = setTimeout(() => {
+      setIsLoadingAdmin(false);
+    }, 4000);
+
+    return () => clearTimeout(timeout);
+  };
 
   return (
     <div>
@@ -90,7 +122,9 @@ function App() {
                 <img
                   src="./../public/task.png"
                   alt=""
-                  onClick={() => setTask(!task)}
+                  onClick={() => {
+                    setTask(true), setInbox(false);
+                  }}
                 />
               </div>
               <div>
@@ -100,7 +134,9 @@ function App() {
                 <img
                   src="./../public/inboxChoose.png"
                   alt=""
-                  onClick={() => setInbox(!inbox)}
+                  onClick={() => {
+                    setInbox(false), setTask(false);
+                  }}
                 />
               </div>
             </>
@@ -113,7 +149,9 @@ function App() {
                 <img
                   src="./../public/inbox.png"
                   alt=""
-                  onClick={() => setInbox(!inbox)}
+                  onClick={() => {
+                    setInbox(true), setTask(false);
+                  }}
                 />
               </div>
               <div>
@@ -127,7 +165,9 @@ function App() {
                       : "./../public/task.png"
                   }
                   alt=""
-                  onClick={() => setTask(!task)}
+                  onClick={() => {
+                    setTask(true), setInbox(false);
+                  }}
                 />
               </div>
             </>
@@ -137,7 +177,17 @@ function App() {
 
       {inbox === true ? (
         <div className="absolute bottom-28 right-10 rounded-lg bg-white text-black w-[40vw] h-[70vh] py-4 px-6">
-          {show === true ? (
+          {isLoading ? (
+            <div>
+              <Search />
+              <div className="w-full h-full grid place-items-center mt-44">
+                <div>
+                  <span className="loading loading-spinner loading-lg"></span>
+                </div>
+                <div>Loading Chats...</div>
+              </div>
+            </div>
+          ) : show === true ? (
             <div className=" w-full">
               <div className="flex flex-row gap-x-2 items-center w-full justify-between">
                 <div>
@@ -323,60 +373,80 @@ function App() {
                   ></i>
                 </div>
               </div>
-              <div className="overflow-auto h-[54vh]">
-                <div className="text-left text-sm w-full mt-2">
-                  <div className="text-primary font-bold">FastVisa Support</div>
-                  <div className="flex gap-x-2 ">
-                    <div className="bg-gray-100 rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
-                      <div>
-                        Hey there. Welcome to your inbox! Contact us for more
-                        information and help about anything! We'll send you a
-                        response as soon as possible.
+              {isLoadingAdmin ? (
+                <div>
+                  <div className="overflow-auto h-[54vh]"></div>
+                  <div className="relative">
+                    <div className="absolute top-0 left-0 -translate-y-14 bg-bluePastel py-3 px-3 rounded-md w-full text-sm text-second text-left flex flex-row items-center gap-x-3">
+                      <span className="loading loading-spinner loading-xs"></span>
+                      Please wait while we connect you with one of our team
+                    </div>
+                    <div className="flex flex-row gap-x-5 mt-3">
+                      <div className="w-10/12">
+                        <input
+                          type="text"
+                          placeholder="Type a New Message"
+                          className="px-5 py-[6px] bg-transparent border rounded-md w-full"
+                        />
                       </div>
-                      <div>19.32</div>
+                      <div className="w-2/12">
+                        <Button placeholder="Send" />
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="text-right text-sm w-full">
-                  <div className="text-chatPurpleDark font-bold">You</div>
-                  <div className="flex gap-x-2 justify-end">
-                    <div>
-                      <i
-                        className="fa-solid fa-ellipsis"
-                        onClick={handleClick}
-                      ></i>
+              ) : (
+                <div>
+                  <div className="overflow-auto h-[54vh]">
+                    <div className="text-left text-sm w-full mt-2">
+                      <div className="text-primary font-bold">
+                        FastVisa Support
+                      </div>
+                      <div className="flex gap-x-2 ">
+                        <div className="bg-gray-100 rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
+                          <div>
+                            Hey there. Welcome to your inbox! Contact us for
+                            more information and help about anything! We'll send
+                            you a response as soon as possible.
+                          </div>
+                          <div>19.32</div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="bg-chatPurple rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
-                      <div>Hi, I need help with something can you help me?</div>
-                      <div>19.32</div>
+                    <div className="text-right text-sm w-full">
+                      <div className="text-chatPurpleDark font-bold">You</div>
+                      <div className="flex gap-x-2 justify-end">
+                        <div>
+                          <i
+                            className="fa-solid fa-ellipsis"
+                            onClick={handleClick}
+                          ></i>
+                        </div>
+                        <div className="bg-chatPurple rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
+                          <div>
+                            Hi, I need help with something can you help me?
+                          </div>
+                          <div>19.32</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <div className="flex flex-row gap-x-5 mt-3">
+                      <div className="w-10/12">
+                        <input
+                          type="text"
+                          placeholder="Type a New Message"
+                          className="px-5 py-[6px] bg-transparent border rounded-md w-full"
+                        />
+                      </div>
+                      <div className="w-2/12">
+                        <Button placeholder="Send" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="relative">
-                <div className="absolute top-0 left-0 -translate-y-14 bg-bluePastel py-3 px-3 rounded-md w-full text-sm text-second text-left">
-                  <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href="./../public/loading.svg"
-                    className="mr-2"
-                    style={{ width: "20px", height: "20px" }}
-                  />{" "}
-                  Please wait while we connect you with one of our team
-                </div>
-                <div className="flex flex-row gap-x-5 mt-3">
-                  <div className="w-10/12">
-                    <input
-                      type="text"
-                      placeholder="Type a New Message"
-                      className="px-5 py-[6px] bg-transparent border rounded-md w-full"
-                    />
-                  </div>
-                  <div className="w-2/12">
-                    <Button placeholder="Send" />
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           ) : (
             <div>
@@ -440,7 +510,9 @@ function App() {
                 <hr />
                 <div
                   className="flex flex-row gap-x-5 items-center justify-center py-6"
-                  onClick={() => setShowAdmin(!showAdmin)}
+                  onClick={() => {
+                    setShowAdmin(!showAdmin), loadingAdminChat();
+                  }}
                 >
                   <div className="relative w-1/12">
                     <div className="absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/6 bg-primary px-4 py-2 rounded-full text-white">
@@ -482,23 +554,37 @@ function App() {
               </select>
             </div>
             <div className="flex justify-end">
-              <Button placeholder="New Task" onClick={() => setNewTask(!newTask)}/>
+              <Button
+                placeholder="New Task"
+                onClick={() => setNewTask(!newTask)}
+              />
             </div>
           </div>
-          <div className="overflow-auto h-[58vh] mt-4">
-            {accordion.map((item: AccordionProps, index: number) => (
-              <Accordion
-                key={index}
-                title={item.title}
-                days={item.days}
-                date={item.date}
-                content={item.content}
-                done={item.done}
-              />
-            ))}
-          </div>
+          {isLoadingTask ? (
+            <div className="w-full grid place-items-center mt-36">
+              <div>
+                <span className="loading loading-spinner loading-lg"></span>
+              </div>
+              <div>Loading Task Lists...</div>
+            </div>
+          ) : (
+            <div className="overflow-auto h-[58vh] mt-4">
+              {accordion.map((item: AccordionProps, index: number) => (
+                <Accordion
+                  key={index}
+                  title={item.title}
+                  days={item.days}
+                  date={item.date}
+                  content={item.content}
+                  done={item.done}
+                />
+              ))}
+            </div>
+          )}
         </div>
       ) : null}
+
+      {newTask === true ? <NewTask setNewTask={setNewTask} /> : null}
     </div>
   );
 }
