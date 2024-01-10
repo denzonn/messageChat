@@ -1,0 +1,36 @@
+{
+  "chat": [
+    {
+      "typeChat": true,
+      "content": "No worries. It will be completed ASAP. I've asked him yesterday.",
+      "time": "19.20",
+      "color1": "",
+      "color2": "",
+      "name": ""
+    },
+    {
+        "typeChat": false,
+        "content": " Hello baidullah, I will be your case adisor for case #029290. I have assigned some homework for you to fill. Please keep up with the due dates. Should you have any questions, you can message me anytime. Thanks",
+        "time": "19.32",
+        "color1": "chatYellowDark",
+        "color2": "chatYellow",
+        "name": "Mary Hilda"
+    },
+    {
+        "typeChat": true,
+        "content": "Please contact Mary for questions regarding the case bcs she will be managing your forms now on! Thanks Mary.",
+        "time": "19.33",
+        "color1": "",
+        "color2": "",
+        "name": ""
+    },
+    {
+        "typeChat": false,
+        "content": "Sure thing. Claren",
+        "time": "19.33",
+        "color1": "",
+        "color2": "",
+        "name": ""
+    }
+  ]
+}

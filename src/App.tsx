@@ -4,6 +4,7 @@ import Search from "./component/Search";
 import Button from "./component/Button";
 import Accordion from "./component/Accordion";
 import NewTask from "./component/NewTask";
+import Chat from "./component/Chat";
 
 interface AccordionProps {
   title: string;
@@ -18,9 +19,6 @@ function App() {
   const [inbox, setInbox] = useState<boolean>(false);
   const [task, setTask] = useState<boolean>(false);
   const [newTask, setNewTask] = useState<boolean>(false);
-
-  console.log(task);
-  
 
   const [show, setShow] = useState<boolean>(false);
   const [showAdmin, setShowAdmin] = useState<boolean>(false);
@@ -90,6 +88,7 @@ function App() {
 
   return (
     <div>
+      
       <div
         className={
           inbox === true || task === true
@@ -188,172 +187,7 @@ function App() {
               </div>
             </div>
           ) : show === true ? (
-            <div className=" w-full">
-              <div className="flex flex-row gap-x-2 items-center w-full justify-between">
-                <div>
-                  <i
-                    className="fa-solid fa-arrow-left-long"
-                    onClick={() => setShow(false)}
-                  ></i>
-                </div>
-                <div className="text-left">
-                  <div className="text-primary">
-                    I-589 - AMARKHIL, Obaudullah [Affirmative Filing with ZHN]
-                  </div>
-                  <div className="font-light text-sm text-third">
-                    3 Participants
-                  </div>
-                </div>
-                <div>
-                  <i
-                    className="fa-solid fa-circle-xmark"
-                    onClick={() => setShow(false)}
-                  ></i>
-                </div>
-              </div>
-              <div className="overflow-auto h-[52vh]">
-                <div className="text-right text-sm w-full">
-                  <div className="text-chatPurpleDark font-bold">You</div>
-                  <div className="flex gap-x-2 justify-end">
-                    <div>
-                      <i
-                        className="fa-solid fa-ellipsis"
-                        onClick={handleClick}
-                      ></i>
-                    </div>
-                    {width ? (
-                      <div
-                        className={`flex flex-col justify-center items-center border rounded-md px-5 py-1 absolute w-[${width}px] h-[${height}px] z-50 bg-white`}
-                      >
-                        <button className="bg-transparent w-full hover:border-transparent text-primary py-1">
-                          Edit
-                        </button>
-                        <button className="bg-transparent w-full hover:border-transparent text-red-500  py-1">
-                          Delete
-                        </button>
-                      </div>
-                    ) : null}
-                    <div className="bg-chatPurple rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
-                      <div>
-                        No worries. It will be completed ASAP. I've asked him
-                        yesterday.
-                      </div>
-                      <div>19.20</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-x-4 mt-4 items-center">
-                  <div>
-                    <hr />
-                  </div>
-                  <div>Today June 09, 2023</div>
-                  <div>
-                    <hr />
-                  </div>
-                </div>
-                <div className="text-left text-sm w-full mt-2">
-                  <div className="text-chatYellowDark font-bold">
-                    Mary Hilda
-                  </div>
-                  <div className="flex gap-x-2 ">
-                    <div className="bg-chatYellow rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
-                      <div>
-                        Hello baidullah, I will be your case adisor for case
-                        #029290. I have assigned some homework for you to fill.
-                        Please keep up with the due dates. Should you have any
-                        questions, you can message me anytime. Thanks
-                      </div>
-                      <div>19.32</div>
-                    </div>
-                    <div>
-                      <i
-                        className="fa-solid fa-ellipsis"
-                        onClick={handleClick}
-                      ></i>
-                    </div>
-                    {width ? (
-                      <div
-                        className={`flex flex-col justify-center items-center border rounded-md px-5 py-1 absolute w-[${width}px] h-[${height}px] z-50 bg-white`}
-                      >
-                        <button className="bg-transparent w-full hover:border-transparent text-primary py-1">
-                          Edit
-                        </button>
-                        <button className="bg-transparent w-full hover:border-transparent text-red-500  py-1">
-                          Delete
-                        </button>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                <div className="text-right text-sm w-full mt-2">
-                  <div className="text-chatPurpleDark font-bold">You</div>
-                  <div className="flex gap-x-2 justify-end">
-                    <div>
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </div>
-                    <div className="bg-chatPurple rounded-md p-2 max-w-[28vw] w-fit text-left text-second">
-                      <div>
-                        Please contact Mary for questions regarding the case bcs
-                        she will be managing your forms now on! Thanks Mary.
-                      </div>
-                      <div>19.33</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="text-left text-sm w-full mt-2">
-                  <div className="text-chatYellowDark font-bold">
-                    Mary Hilda
-                  </div>
-                  <div className="flex gap-x-2 ">
-                    <div className="bg-chatYellow rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
-                      <div>Sure thing. Claren</div>
-                      <div>19.33</div>
-                    </div>
-                    <div>
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-3 gap-x-4 mt-4 items-center text-red-500 font-bold">
-                  <div>
-                    <hr className="border-red-400 border" />
-                  </div>
-                  <div>
-                    New Message{" "}
-                    <i className="fa-solid fa-arrow-down text-gray-100 ml-2"></i>
-                  </div>
-                  <div>
-                    <hr className="border-red-400 border" />
-                  </div>
-                </div>
-                <div className="text-left text-sm w-full mt-2">
-                  <div className="text-chatGreenDark font-bold">
-                    Aboidullah Amarkhil
-                  </div>
-                  <div className="flex gap-x-2 ">
-                    <div className="bg-chatGreen rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
-                      <div>Good Morning. I'ii try to do them. Thanks</div>
-                      <div>19.35</div>
-                    </div>
-                    <div>
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-row gap-x-5 mt-3">
-                <div className="w-10/12">
-                  <input
-                    type="text"
-                    placeholder="Type a New Message"
-                    className="px-5 py-[6px] bg-transparent border rounded-md w-full"
-                  />
-                </div>
-                <div className="w-2/12">
-                  <Button placeholder="Send" />
-                </div>
-              </div>
-            </div>
+            <Chat/>
           ) : showAdmin === true ? (
             <div className=" w-full">
               <div className="flex flex-row gap-x-2 items-center w-full justify-between">
