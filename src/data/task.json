@@ -1,0 +1,33 @@
+{
+    "accordion": [
+        {
+            "title": "Close off Case #123123 - RODRIGUES, Amiguel",
+            "days": 2,
+            "date": "12/06/2021",
+            "content": "Tsessdad",
+            "done": false,
+            "bookmark": [
+                "Important ASAP",
+                "Offline Meeting"
+            ]
+        },
+        {
+            "title": "Another Case #456456 - SMITH, John",
+            "days": 3,
+            "date": "13/06/2021",
+            "content": "Another Content",
+            "done": false,
+            "bookmark": [
+                "Self Task",
+                "Appointments"
+            ]
+        },
+        {
+            "title": "Close off Case #789789 - JONES, Jane",
+            "days": 1,
+            "date": "14/06/2021",
+            "content": "More Content",
+            "done": true
+        }
+    ]
+}

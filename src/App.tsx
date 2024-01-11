@@ -5,6 +5,7 @@ import Button from "./component/Button";
 import Accordion from "./component/Accordion";
 import NewTask from "./component/NewTask";
 import Chat from "./component/Chat";
+import TaskData from "./data/task.json";
 
 interface AccordionProps {
   title: string;
@@ -12,6 +13,7 @@ interface AccordionProps {
   date: string;
   content: string;
   done?: boolean;
+  bookmark?: string[];
 }
 
 function App() {
@@ -23,44 +25,9 @@ function App() {
   const [show, setShow] = useState<boolean>(false);
   const [showAdmin, setShowAdmin] = useState<boolean>(false);
 
-  const [width, setWidth] = useState<number>();
-  const [height, setHeight] = useState<number>();
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingTask, setIsLoadingTask] = useState<boolean>(true);
   const [isLoadingAdmin, setIsLoadingAdmin] = useState<boolean>(true);
-
-  const handleClick = (event) => {
-    const clickedX = event.clientX;
-    const clickedY = event.clientY;
-
-    setWidth(clickedX);
-    setHeight(clickedY);
-  };
-
-  const accordion = [
-    {
-      title: "Close off Case #123123 - RODRIGUES, Amiguel",
-      days: 2,
-      date: "12/06/2021",
-      content: "Tsessdad",
-      done: false,
-    },
-    {
-      title: "Close off Case #123123 - RODRIGUES, Amiguel",
-      days: 2,
-      date: "12/06/2021",
-      content: "Tsessdad",
-      done: false,
-    },
-    {
-      title: "Close off Case #123123 - RODRIGUES, Amiguel",
-      days: 2,
-      date: "12/06/2021",
-      content: "Tsessdad",
-      done: true,
-    },
-  ];
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -88,7 +55,6 @@ function App() {
 
   return (
     <div>
-      
       <div
         className={
           inbox === true || task === true
@@ -187,7 +153,7 @@ function App() {
               </div>
             </div>
           ) : show === true ? (
-            <Chat/>
+            <Chat />
           ) : showAdmin === true ? (
             <div className=" w-full">
               <div className="flex flex-row gap-x-2 items-center w-full justify-between">
@@ -403,16 +369,20 @@ function App() {
             </div>
           ) : (
             <div className="overflow-auto h-[58vh] mt-4">
-              {accordion.map((item: AccordionProps, index: number) => (
-                <Accordion
-                  key={index}
-                  title={item.title}
-                  days={item.days}
-                  date={item.date}
-                  content={item.content}
-                  done={item.done}
-                />
-              ))}
+              {TaskData?.accordion &&
+                TaskData?.accordion?.map(
+                  (item: AccordionProps, index: number) => (
+                    <Accordion
+                      key={index}
+                      title={item.title}
+                      days={item.days}
+                      date={item.date}
+                      content={item.content}
+                      done={item.done}
+                      bookmark={item?.bookmark}
+                    />
+                  )
+                )}
             </div>
           )}
         </div>

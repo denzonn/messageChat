@@ -7,6 +7,7 @@ interface AccordionProps {
   date: string;
   content: string;
   done?: boolean;
+  bookmark?: string[]
 }
 
 const Accordion: FC<AccordionProps> = ({
@@ -15,6 +16,7 @@ const Accordion: FC<AccordionProps> = ({
   date,
   content,
   done,
+  bookmark
 }) => {
   const [showContent, setShowContent] = useState(false);
 
@@ -52,7 +54,7 @@ const Accordion: FC<AccordionProps> = ({
         </div>
         {showContent && (
           <div className="content">
-            <TaskContent content={content} done={done}/>
+            <TaskContent content={content} done={done} bookmark={bookmark}/>
           </div>
         )}
       </div>
@@ -86,7 +88,7 @@ const Accordion: FC<AccordionProps> = ({
         </div>
         {showContent && (
           <div className="content">
-            <TaskContent content={content} done={done}/>
+            <TaskContent content={content} done={done} bookmark={bookmark}/>
           </div>
         )}
       </div>

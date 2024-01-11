@@ -76,7 +76,7 @@ const DetailChat: FC<DetailChatProps> = ({
   ) : (
     <div className="text-left text-sm w-full mt-2">
       <div className={`text-${color1} font-bold`}>{name}</div>
-      <div className="flex gap-x-2 relative z-0">
+      <div className="flex gap-x-2 relative z-10">
         <div
           className={`bg-${color2} rounded-md p-2 max-w-[26vw]  w-fit text-left text-second`}
         >
