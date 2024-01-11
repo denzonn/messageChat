@@ -3,13 +3,14 @@
 @tailwind utilities;
 
 :root {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background: rgb(53,140,214);
+background: linear-gradient(139deg, rgba(53,140,214,1) 0%, rgba(22,208,217,1) 100%);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

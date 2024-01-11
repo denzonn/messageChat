@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import Button from "./Button";
 import DetailChat from "./DetailChat";
 
-const Chat = () => {
+interface ChatProps {
+  setShow?: ((value: boolean) => void) | undefined;
+}
+
+const Chat: FC<ChatProps> = ({setShow}) => {
   const [showReply, setShowReply] = useState<boolean>(false);
 
   return (
@@ -11,7 +15,7 @@ const Chat = () => {
         <div>
           <i
             className="fa-solid fa-arrow-left-long"
-            // onClick={() => setShow(false)}
+            onClick={() => setShow && setShow(false)}
           ></i>
         </div>
         <div className="text-left">
@@ -23,7 +27,7 @@ const Chat = () => {
         <div>
           <i
             className="fa-solid fa-circle-xmark"
-            // onClick={() => setShow(false)}
+            onClick={() => setShow && setShow(false)}
           ></i>
         </div>
       </div>

@@ -6,6 +6,8 @@ import Accordion from "./component/Accordion";
 import NewTask from "./component/NewTask";
 import Chat from "./component/Chat";
 import TaskData from "./data/task.json";
+import { motion } from "framer-motion";
+import Navbar from "./component/Navbar";
 
 interface AccordionProps {
   title: string;
@@ -15,6 +17,36 @@ interface AccordionProps {
   done?: boolean;
   bookmark?: string[];
 }
+
+const backdrop = {
+  visible: {
+    x: 0,
+    opacity: 1,
+    originX: 0,
+    transition: {
+      delay: 0.5,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    x: 20,
+  },
+};
+
+const popup = {
+  visible: {
+    y: 0,
+    opacity: 1,
+    originY: 0,
+    transition: {
+      delay: 0.5,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    y: 30,
+  },
+};
 
 function App() {
   const [open, setOpen] = useState<boolean>(false);
@@ -55,6 +87,18 @@ function App() {
 
   return (
     <div>
+      <Navbar />
+      <div className="flex flex-row gap-x-3">
+        <div className="text-[10vh] text-left w-full font-bold">
+          Simple <br /> Web Design
+          <div className="text-base font-medium">
+            Welcome to the PT. Techno Astra Terapan
+          </div>
+        </div>
+        <div>
+          <img src="./../public/home.svg" alt="" className="w-[50vw] h-auto"/>
+        </div>
+      </div>
       <div
         className={
           inbox === true || task === true
@@ -71,7 +115,11 @@ function App() {
       ) : null}
 
       {open && open === true ? (
-        <div
+        <motion.div
+          variants={backdrop}
+          exit="hidden"
+          animate="visible"
+          initial="hidden"
           className={
             inbox === true || task === true
               ? "absolute bottom-10 right-10 flex flex-row gap-x-5"
@@ -137,11 +185,17 @@ function App() {
               </div>
             </>
           )}
-        </div>
+        </motion.div>
       ) : null}
 
       {inbox === true ? (
-        <div className="absolute bottom-28 right-10 rounded-lg bg-white text-black w-[40vw] h-[70vh] py-4 px-6">
+        <motion.div
+          variants={popup}
+          exit="hidden"
+          animate="visible"
+          initial="hidden"
+          className="absolute bottom-28 right-10 rounded-lg bg-white text-black w-[40vw] h-[70vh] py-4 px-6"
+        >
           {isLoading ? (
             <div>
               <Search />
@@ -153,7 +207,7 @@ function App() {
               </div>
             </div>
           ) : show === true ? (
-            <Chat />
+            <Chat setShow={setShow} />
           ) : showAdmin === true ? (
             <div className=" w-full">
               <div className="flex flex-row gap-x-2 items-center w-full justify-between">
@@ -219,7 +273,7 @@ function App() {
                         <div>
                           <i
                             className="fa-solid fa-ellipsis"
-                            onClick={handleClick}
+                            // onClick={handleClick}
                           ></i>
                         </div>
                         <div className="bg-chatPurple rounded-md p-2 max-w-[28vw]  w-fit text-left text-second">
@@ -334,11 +388,17 @@ function App() {
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       ) : null}
 
       {task === true ? (
-        <div className="absolute bottom-28 right-10 rounded-lg bg-white text-black w-[40vw] h-[70vh] py-4 px-6">
+        <motion.div
+          variants={popup}
+          exit="hidden"
+          animate="visible"
+          initial="hidden"
+          className="absolute bottom-28 right-10 rounded-lg bg-white text-black w-[40vw] h-[70vh] py-4 px-6"
+        >
           <div className="grid grid-cols-2 gap-x-4">
             <div>
               <select
@@ -385,7 +445,7 @@ function App() {
                 )}
             </div>
           )}
-        </div>
+        </motion.div>
       ) : null}
 
       {newTask === true ? <NewTask setNewTask={setNewTask} /> : null}
